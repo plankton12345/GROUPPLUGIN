@@ -1,4 +1,4 @@
-name: PMMPKUNITORI
+name: PMMPGROUPPLUGIN
 main: plugin\plugin
 version: 0.5.3
 api: [1.14.0]
