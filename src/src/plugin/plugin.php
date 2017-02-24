@@ -1,4 +1,5 @@
 <?php
+//このプラグインはLaika氏以外の二次配布、改造、商用利用、というか利用以外を禁じます
 namespace plugin;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
