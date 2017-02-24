@@ -4,4 +4,10 @@ version: 0.5.3
 api: [1.14.0]
 load: POSTWORLD
 authors: 骸の王
+command:
+    creategroup:
+         usage: " /creategroup [Player] "
+         permissions:
+         join:   
+         usage: " /join [Player] "
 
