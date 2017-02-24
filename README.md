@@ -1,2 +1,0 @@
-# GROUPPLUGIN
-(redameは)ないです
