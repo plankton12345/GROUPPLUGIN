@@ -25,43 +25,44 @@ class plugin extends PluginBase implements Listener{
 	}
           	public function onCommand(CommandSender $sender, Command $command, $label, array $args)
 	{
-                      	if($command->getName() =="groupjoin"){//pluginコマンドの処理
+                      	if($command->getName() =="groupjoin"){
+                                  $player=$sender->getPlayer();//pluginコマンドの処理
                             if(!isset($args[0])) return false;
                                      	if(!$sender instanceof Player){ 
                                                        $sender->sendMessage("§4[エラー]ゲーム内で実行して下さい");
                                         }else{
                                           
-                                             $name = $sender->getName();
+                                             $name = $player->getName();
                                if ($this->config->exists($args[0])) {
                                            $gr = $this->config->get("{$name}");
                                            
-                                         $sender->sendMessage("あなたは".$gr."に参加しています");  
+                                         $player->sendMessage("あなたは".$gr."に参加しています");  
                                }else{
                                             if ($this->config->exists("{$args[0]}")) {
                                              $this->config->set("{$name}{$args[0]}");
                                                       $this->config->save();
-                                                    $sender->sendMessage("{$args[0]}に参加しました");
+                                                    $player->sendMessage("{$args[0]}に参加しました");
                                }else{
-                                   $sender->sendMessage("そのようなグールプは存在しませんｗ");
+                                   $player->sendMessage("そのようなグールプは存在しませんｗ");
                                }
                                }
                                         }
                         }
                              if($command->getName() =="groupcreate"){//pluginコマンドの処理
+                                 $player=$sender->getPlayer();
                                      	if(!$sender instanceof Player){ 
-                                                       $sender->sendMessage("§4[エラー]ゲーム内で実行して下さい");
                                         }else{
                                           
-                                             $name = $sender->getName();
+                                             $name = $player->getName();
                                if ($this->config->exists($args[0])) {
                                            $gr = $this->config->get("{$name}");
                                            
-                                         $sender->sendMessage("{$gr}はすでに存在します");  
+                                         $player->sendMessage("{$gr}はすでに存在します");  
                                }else{
   
                                              $this->config->set("{$args[0]}{$name}");
                                                       $this->config->save();
-                                                    $sender->sendMessage("{$args[0]}を作成しました");
+                                                    $player->sendMessage("{$args[0]}を作成しました");
        
 
 
