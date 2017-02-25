@@ -7,6 +7,7 @@ use pocketmine\command\CommandExecutor;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 use pocketmine\utils\Config;
+use pocketmine\Server;
 class Plugin extends PluginBase implements Listener{
 function onEnable(){
         if(!file_exists($this->getDataFolder())){
@@ -17,12 +18,13 @@ function onEnable(){
     
 public function onCommand(CommandSender $sender, Command $command, $label, array $args){
 	if($command->getName() == "joingroup"){
-       	if($this->config->exists($sender)){
-			 $gr=$this->config->get($sender);
-                         $sender->sendMessage("あなたは"."$gr"."に参加しています");  
+            $name=$sender->getName($name);
+       	if($this->config->exists()){
+			 $gr=$this->config->get($name);
+                         $sender->sendMessage("あなたは".$gr."に参加しています");  
 		}else{
                     if($this->config->exists($label)){
-                        $this->config->set("$sender", "$label");
+                        $this->config->set($name, $label);
                         $this->config->save();
                         $sender->sendMessage($label."に参加しました");
                     }
