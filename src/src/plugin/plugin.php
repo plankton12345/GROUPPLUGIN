@@ -1,43 +1,80 @@
 <?php
-//このプラグインはLaika氏以外の二次配布、改造、商用利用、というか利用以外を禁じます
+
 namespace plugin;
+
+use pocketmine\plugin\PluginBase;
+use pocketmine\Player;
+use pocketmine\Server;
+use pocketmine\event\Listener;
+use pocketmine\utils\Config;
+use BaseClassLoader;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\CommandExecutor;
-use pocketmine\plugin\PluginBase;
-use pocketmine\event\Listener;
-use pocketmine\utils\Config;
-use pocketmine\Server;
-class Plugin extends PluginBase implements Listener{
-function onEnable(){
-        if(!file_exists($this->getDataFolder())){
-			mkdir($this->getDataFolder(), 0744, true);
-		}
-		$this->config = new Config($this->getDataFolder() . "data.yml", Config::YAML,array());//Config生成
+
+class plugin extends PluginBase implements Listener{
+
+	public function onEnable()
+	{
+                     	$this->getServer()->getPluginManager()->registerEvents($this,$this);
+                        if(!file_exists($this->getDataFolder())){
+           //configを入れるフォルダが有るかチェック
+            mkdir($this->getDataFolder(), 0744, true);
+          new Config($this->getDataFolder() . "config.yml", Config::YAML);
+               }
 	}
-    
-public function onCommand(CommandSender $sender, Command $command, $label, array $args){
-	if($command->getName() == "joingroup"){
-            $name=$sender->getName($name);
-       	if($this->config->exists()){
-			 $gr=$this->config->get($name);
-                         $sender->sendMessage("あなたは".$gr."に参加しています");  
-		}else{
-                    if($this->config->exists($label)){
-                        $this->config->set($name, $label);
-                        $this->config->save();
-                        $sender->sendMessage($label."に参加しました");
-                    }
-                    }
+          	public function onCommand(CommandSender $sender, Command $command, $label, array $args)
+	{
+                      	if($command->getName() =="groupjoin"){//pluginコマンドの処理
+                            if(!isset($args[0])) return false;
+                                     	if(!$sender instanceof Player){ 
+                                                       $sender->sendMessage("§4[エラー]ゲーム内で実行して下さい");
+                                        }else{
+                                          
+                                             $name = $sender->getName();
+                               if ($this->config->exists($args[0])) {
+                                           $gr = $this->config->get("{$name}");
+                                           
+                                         $sender->sendMessage("あなたは".$gr."に参加しています");  
+                               }else{
+                                            if ($this->config->exists("{$args[0]}")) {
+                                             $this->config->set("{$name}{$args[0]}");
+                                                      $this->config->save();
+                                                    $sender->sendMessage("{$args[0]}に参加しました");
+                               }else{
+                                   $sender->sendMessage("そのようなグールプは存在しませんｗ");
+                               }
+                               }
+                                        }
+                        }
+                             if($command->getName() =="groupcreate"){//pluginコマンドの処理
+                                     	if(!$sender instanceof Player){ 
+                                                       $sender->sendMessage("§4[エラー]ゲーム内で実行して下さい");
+                                        }else{
+                                          
+                                             $name = $sender->getName();
+                               if ($this->config->exists($args[0])) {
+                                           $gr = $this->config->get("{$name}");
+                                           
+                                         $sender->sendMessage("{$gr}はすでに存在します");  
+                               }else{
+  
+                                             $this->config->set("{$args[0]}{$name}");
+                                                      $this->config->save();
+                                                    $sender->sendMessage("{$args[0]}を作成しました");
+       
+
+
+                               
+                               
+                               }
+                                        }
+                             }
+                        
         }
-        if($command->getName() == "creategroup"){
-        if($this->config->exists("$label")){
-          $sender->sendMessage("その名前のGroupはすでに存在します");
-          }else{
-$this->config->set($label.$label);
-$this->config->save();
-$sender->sendMessage("Groupを作成しました");
-            }
 }
-}
-}
+                                   
+                               
+                                            
+
+                      

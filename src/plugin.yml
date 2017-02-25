@@ -1,13 +1,13 @@
-name: PMMPGROUPPLUGIN
+name: GroupPlugin
 main: plugin\plugin
-version: 0.5.3
+version: 1.0.0
 api: [1.14.0]
 load: POSTWORLD
-authors: 骸の王
-command:
-    creategroup:
-         usage: " /creategroup [Player] "
-         permissions:
-         join:   
-         usage: " /join [Player] "
-
+author: 骸の王
+commands:
+    groupjoin:
+        description: GroupJoin
+        usage:"Usage: /groupjoin"
+    groupcreate:
+        description: GroupCreate
+        usage:"Usage: /groupcreate"
