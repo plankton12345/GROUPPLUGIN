@@ -66,11 +66,19 @@ class plugin extends PluginBase implements Listener{
                                
                                }
                                         }
-                             }
+                                        
+                                        
+                      if($command->getName() === "mygroup"){
+                        $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML,array());
+                        $name = $sender->getName();
+                        if($this->config->exists($args[0])) {
+                        $gr = $this->config->get("{$name}");
+                        $sender->sendMessage("あなたは{$gr}に参加しています");
+                        }else{
+                            $sender->sendMessage("あなたはグループに参加していません");
                         
-        }
-
-                                   
-                               
                                             
-    
+                                        }
+                             }
+        }
+        }

@@ -11,3 +11,6 @@ commands:
     groupcreate:
         description: GroupCreate
         usage:"Usage: /groupcreate"
+    mygroup:
+        description: mygroupCheck
+        usage:"Usage: /mygroup"
