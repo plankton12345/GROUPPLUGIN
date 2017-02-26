@@ -37,7 +37,7 @@ class plugin extends PluginBase implements Listener{
                                          $sender->sendMessage("あなたはすでに参加しています");  
                                }else{
                                             if ($this->config->exists("{$args[0]}")) {
-                                             $this->config->set("{$args[0]}","$name");
+                                             $this->config->set("{$name},{$args[0]}");
                                                       $this->config->save();
                                                     $sender->sendMessage("{$args[0]}に参加しました");
                                }else{
@@ -71,7 +71,7 @@ class plugin extends PluginBase implements Listener{
                       if($command->getName() === "mygroup"){
                         $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML,array());
                         $name = $sender->getName();
-                        if($this->config->exists($args[0])) {
+                        if($this->config->exists($name)) {
                         $gr = $this->config->get("{$name}");
                         $sender->sendMessage("あなたは{$gr}に参加しています");
                         }else{
