@@ -27,14 +27,16 @@ class plugin extends PluginBase implements Listener{
 	{
                       	if($command->getName() ==="groupjoin"){
                                   $player=$sender->getPlayer();//pluginコマンドの処理
-                            if(!isset($args[0])) return false;
+                            if(!isset($args[0])){
+                                
+                            }else{
  
                              $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML,array());
                                              $name = $sender->getName();
                                if($this->config->exists($args[0])) {
                                            $gr = $this->config->get("{$name}");
                                            
-                                         $sender->sendMessage("あなたはすでに参加しています");  
+                                         $sender->sendMessage("あなたはすでにグループに参加しています");  
                                }else{
                                             if ($this->config->exists("{$args[0]}")) {
                                              $this->config->set("{$name},{$args[0]}");
@@ -80,5 +82,18 @@ class plugin extends PluginBase implements Listener{
                                             
                                         }
                              }
+                     if($command->getName() === "groupquit"){
+                         $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML,array());
+                         $name = $sender->getName();
+                          if($this->config->exists($name)) {
+                              $this->config->remove("$name");
+                              $this->config->save();
+                          }else{
+                              $sender->sendMessage("あなたはグループに参加していません");
+                              
+                     }
         }
+        }
+
+}
 }
