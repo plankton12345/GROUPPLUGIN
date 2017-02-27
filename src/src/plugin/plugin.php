@@ -27,9 +27,6 @@ class plugin extends PluginBase implements Listener{
 	{
                       	if($command->getName() ==="groupjoin"){
                                   $player=$sender->getPlayer();//pluginコマンドの処理
-                            if(!isset($args[0])){
-                                
-                            }else{
  
                              $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML,array());
                                              $name = $sender->getName();
@@ -95,5 +92,4 @@ class plugin extends PluginBase implements Listener{
         }
         }
 
-}
 }
